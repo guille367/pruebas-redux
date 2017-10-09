@@ -1,0 +1,103 @@
+
+
+/*----------------------------*/
+
+Action creators:
+
+Básicamente son funciones que crean actions.
+
+Esto es:
+
+function addTodo(text){
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
+
+Flux dice que los actions creators directamente invoquen al dispatch.
+No es el caso de redux, que procura separarlos
+
+Flux: 
+
+function addTodo(text){
+  var q = {
+    type: ADD_TODO,
+    text
+  }
+
+  dispatch(q);
+}
+
+Redux: 
+
+function addTodo(text){
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
+
+var q = addTodo("Preparar la comida");
+
+dispatch(q);
+
+Una opción a esto puede ser armar funciones que hagan lo mismo que Flux:
+
+function bundleAddTodo = text => dispatch(addTodo(text));
+
+bundleAddTodo("Preparar la comida");
+
+
+Podemos hacer el dispatch desde store.dispatch() o con el helper 
+de react-redux connect()
+
+Action creators:
+
+Básicamente son funciones que crean actions.
+
+Esto es:
+
+function addTodo(text){
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
+
+Flux dice que los actions creators directamente invoquen al dispatch.
+No es el caso de redux, que procura separarlos
+
+Flux: 
+
+function addTodo(text){
+  var q = {
+    type: ADD_TODO,
+    text
+  }
+
+  dispatch(q);
+}
+
+Redux: 
+
+function addTodo(text){
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
+
+var q = addTodo("Preparar la comida");
+
+dispatch(q);
+
+Una opción a esto puede ser armar funciones que hagan lo mismo que Flux:
+
+function bundleAddTodo = text => dispatch(addTodo(text));
+
+bundleAddTodo("Preparar la comida");
+
+
+
+*VER TAMBIEN bindActionCreators*

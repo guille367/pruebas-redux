@@ -1,0 +1,16 @@
+Notas:
+
+Redux define el estado de la aplicación en un sólo objeto plano.
+Es recomendable separar la data y el estado de la UI.
+
+Eg:
+{
+  visibilityFilter: 'SHOW_COMPLETED',
+  todos:[
+    {},{},{}
+  ]
+}
+
+También hay que tender a normalizar el estado de la app lo más posible.
+todos: array<id> => ({ ...todos: [1,2,3] })
+

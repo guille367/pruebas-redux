@@ -1,0 +1,31 @@
+bindActionCreators
+
+Helper de redux que transforma un objeto cuyas propiedades son actions creators,
+en un objeto que tiene las mismas propiedades pero wrappeadas con el dispatch, 
+de manera que se invoque directamente.
+
+Eg:
+
+Transforma:
+{
+  addTodo,
+  removeTodo,
+  toggleTodo
+}
+
+En:
+{
+  addTodo: text => dispatch(addTodo(text)),
+  removeTodo: index => dispatch(removeTodo(index)),
+  toggleTodo: index => dispatch(toggleTodo(index))
+}
+
+Parámetros:
+
+actionCreators: función de tipo action creator u objeto que cuyas propiedades son los action creators
+dispatch: función que despacha la acción (la tiene la instancia del store, store.dispatch())
+
+Return:
+
+objeto o función con las mismas propiedades que la entrada, pero que despachan la acción directamente.
+

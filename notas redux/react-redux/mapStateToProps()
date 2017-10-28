@@ -1,0 +1,33 @@
+mapStateToProps(state, [ownProps])
+
+Si se pasa esta función como argumento del connect(), el componente se suscribe a los cambios del estado del store.
+Así, cada vez que se actualiza el store se va a invocar a esta función.
+Devuelve un objeto plano que va a mapear las propiedades del mismo a las propiedades del componente.
+
+Eg:
+
+const MyComponent(props) => {
+	return (
+	<div>id: {props.id} - nombre: {props.nombre} </div>	
+	)
+}
+
+function mapStateToProps(state) {
+	return { id: state.id, nombre: state.nombre }
+}
+
+//Lo mismo para los container componentes que reciben las propiedades en el constructor
+
+Se puede pasar cómo primer parámetro null al connect en caso de que no querramos suscribirnos a las
+actualizaciones del store.
+
+El segundo parámetro ([ownProps]) va a ser las propiedades que recibió el componente en el caso de que se los hayan pasado
+
+Eg:
+
+<FilteredList filter='SHOW_ALL' />
+
+function mapStateToProps(state, ownProps){
+	//state -> ...state
+	//ownProps -> { filter: 'SHOW_ALL' }
+}

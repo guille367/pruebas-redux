@@ -1,0 +1,30 @@
+connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+
+Permite conectar los componentes al estado de la aplicación. Es una función pura, por lo cual no modifica
+el componente, sino que devuelve uno nuevo "conectado"
+
+Generalmente exportamos el componente directamente, pero como el connect devuelve el nuevo componente conectado
+va a ser este el que exportemos.
+Eg:
+
+(Lo que hacemos generalmente)
+
+class MyComponent extends React.Component {
+	render() {
+		...	
+	}
+}
+
+export default MyComponent;
+
+(Cómo lo hacemos con el connect)
+
+class MyComponent extends React.Component {
+	render() {
+		...	
+	}
+}
+
+export default connect(null,null)(MyComponent);
+
+

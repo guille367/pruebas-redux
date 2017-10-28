@@ -1,0 +1,20 @@
+<Provider/>
+
+Permite acceder al store en cualquier parte de la aplicación que esté wrappeada dentro de este componente.
+
+Eg:
+
+<Provider store={myStore}>
+	<div>
+		<Header/>
+		<TodoList/>
+		<Footer/>
+	</div>
+</Provider>
+
+De esta forma, los 3 componentes hijos de Provider tienen acceso al store, pudiendo bindear sus propiedades
+directamente al estado de la aplicación y no tener que setear el store en cada connect()
+Nota: el provider acepta únicamente un sólo hijo, por eso los 3 componentes están wrappeados por el div.
+
+
+

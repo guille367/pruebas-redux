@@ -1,0 +1,30 @@
+mapDispatchToProps(dispatch, [ownProps])
+
+Funciona de manera similar al mapStateToProps, pero devuelve un objeto cuyas propiedades son todas funciones.
+La idea es que todas las funciones del objeto devuelto sean wrappeadas por el dispatch recibido por parámetro (se puede hacerlo
+manualmente, uno por uno o mucho mejor con el bindActionCreators que lo hace automáticamente).
+El componente va a tener como propiedades las funciónes wrappeadas con el dispatch, de forma tal que el mismo componente
+va a poder actualizar el store.
+
+Eg:
+
+function mapDispatchToProps(dispatch) {
+	return { 
+		toggleTodo: dispatch(toggleTodo),
+		selectFilter: dispatch(selectFilter)	
+	}
+}
+
+ó
+
+import { toggleTodo, selectFilter } from 'todoActions';
+
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({toggleTodo: toggleTodo, selectFilter: selectFilter}, dispatch);	
+	}
+}
+
+El segundo parámetro ([ownProps]) funciona de la misma forma que el mapStateToProps, va a ser un objeto
+con las propiedades pasadas al componente, y se va a invocar al mapDispatchToProps cada vez que el componente
+reciba nuevas propiedades
+

@@ -1,0 +1,7 @@
+mergeProps(stateProps, dispatchProps, ownProps)
+
+Recibe las propiedades que devolvieron las funciones mapStateToProps y mapDispatchToProps y las propiedades recibidas por el componente,
+y setea las propiedades al objeto "conectado".
+Se puede usar esta función para decir qué propiedades finalmente vamos a querer que tenga el componente, 
+si se omite va a pasar abssolutamente todas las que devolvieron las funciones declaradas anteriormente.
+ 

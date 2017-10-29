@@ -1,6 +1,8 @@
 import React from 'react';
 import { reduxForm, Form, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { createPost } from '../actions/BlogActions';
+import { connect } from 'react-redux';
 
 class NewPost extends React.Component {
   constructor(props) {
@@ -8,40 +10,78 @@ class NewPost extends React.Component {
     this.state = { title: 'titulo' }
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(e)
+  submitPost = (values) => {
+    this.props.createPost(values, () => { this.props.history.push("/") });
   }
 
-  normalizeTest = (a,c,d,e) => {
-    console.log(a,c,d,e);
-    return a;
-  } 
+  renderField = (values) => {
+    const { meta: { touched, error, pristine, active } } = values;
+    const errMsg = touched && error ? error : "";
+    const className = `col-md-4 ${errMsg ? 'has-error' : ''}`
+
+    return (
+      <div className="row form-group">
+        <div className={className}>
+          <label>{ values.label }</label>
+          <input { ...values.input } className="form-control" type="text"/>
+          <span className="text-danger">{ errMsg }</span>
+        </div>
+      </div>
+    );
+  }
 
   render() {
+    if(this.props.uiState.submittingPost){
+      return ("Wait a second...");
+    }
+
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <div>
-          <label>Title</label>
-          <Field component="input" type="text" name="title"/>
-        </div>
-        <div>
-          <label>Categories</label>
-          <Field component="input" type="text" name="categories"/>
-        </div>
-        <div>
-          <label>Content</label>
-          <Field component="input" type="textarea" name="content"/>
-        </div>
-        <button type="submit">Save</button>
-        <Link to="/">Cancel</Link>
+      <Form onSubmit={ this.props.handleSubmit(this.submitPost) } className="content">
+        <h1>New Post</h1>
+        <Field 
+          component={this.renderField}
+          label="Title"
+          validate={validateTitle}
+          name="title"
+        />
+        <Field 
+          component={this.renderField}
+          label="Categories"
+          name="categories"
+          validate={validateCategories}
+        />
+        <Field 
+          component={this.renderField}
+          label="Content"
+          name="content"
+        />
+        <button type="submit" className="btn btn-primary">Save</button>
+        <Link to="/" className="btn btn-default">Cancel</Link>
       </Form>
     );
   }
 }
 
-const NewPostComponent = reduxForm({
-  form: 'newPost'
-})(NewPost);
+const validateTitle = (input) => {
+  let err = {};
+  if(!input)
+    return "ingrese un título"; 
+  else if(input.length < 3)
+    return "Ingrese un valor de mas de 3 letras"
+}
 
-export default NewPostComponent;
+const validateCategories = (input) => {
+  if(!input)
+    return "ingrese una categoría"
+}
+
+const mapStateToProps = (props,ownProps) => {
+  console.log(props)
+  return props;
+}
+
+const connectedComponent = connect(mapStateToProps, { createPost })(NewPost);
+
+export default reduxForm({
+  form: 'newPost'
+})(connectedComponent);

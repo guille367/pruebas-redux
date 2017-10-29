@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 export default function blogReducers(state = {}, action) {
   switch(action.type) {
+    case actionTypes.CREATE_POST:
+      return state;
     case actionTypes.FETCH_POSTS:
       return _.mapKeys(action.payload.data, 'id');
     

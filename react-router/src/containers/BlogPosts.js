@@ -10,7 +10,12 @@ class BlogPosts extends React.Component {
   }
   
   renderPosts = (posts) => {
-    return _.map(posts, (p) => <li key={p.id} className="list-group-item">{p.title}</li>)
+    return _.map(posts, (p) => {
+    return(
+    <li key={p.id} className="list-group-item">
+      <Link to={`/posts/${p.id}`}>{p.title}</Link>
+    </li>
+    )});
   }
 
   render() {

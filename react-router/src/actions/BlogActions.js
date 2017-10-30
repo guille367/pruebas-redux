@@ -3,10 +3,10 @@ import { actionTypes } from './ActionTypes';
 import { UIActionTypes } from './UIActionTypes';
 
 const API_KEY = '?key=elwilisdelagente'
-const API_URL = `http://reduxblog.herokuapp.com/api/posts${API_KEY}`;
+const API_URL = `http://reduxblog.herokuapp.com/api/posts`;
 
 export function fetchPosts() {
-  const request = axios.get(API_URL);
+  const request = axios.get(`${API_URL}${API_KEY}`);
   return {
     type: actionTypes.FETCH_POSTS,
     payload: request
@@ -15,14 +15,35 @@ export function fetchPosts() {
 
 export function createPost(values, cbSuccess) { 
   return (dispatch, getState) => {
-    console.log(getState())
     dispatch(submitPost())
-    setTimeout(function() {
-      return axios.post(`${API_URL}`, values)
+    return axios.post(`${API_URL}${API_KEY}`, values)
       .then(() => {
       dispatch(submitPostSuccess());
-      cbSuccess()});
-    }, 1000);
+      cbSuccess()
+    });
+  }
+}
+
+export function fetchPost(id) {
+  const request = axios.get(`${API_URL}/${id}${API_KEY}`);
+
+  return {
+    type: actionTypes.FETCH_POST_BY_ID,
+    payload: request,
+  }
+}
+
+export function deletePost(id, cbSuccess) {
+  return dispatch => {
+    dispatch(deletingPost());
+
+    return axios.delete(`${API_URL}/${id}`)
+      .then(() => { 
+        dispatch(deletePostComplete(id));
+        dispatch(deletePostSuccess(id));
+        cbSuccess();
+      });
+      
   }
 }
 
@@ -45,13 +66,22 @@ function createPostComplete(request) {
   }
 }
 
+function deletingPost() {
+  return {
+    type: UIActionTypes.DELETING_POST
+  }
+}
 
+function deletePostComplete(id) {
+  return {
+    type: actionTypes.DELETE_POST,
+    payload: id
+  }
+}
 
-// function fetchPosts(subreddit) {
-//   return dispatch => {
-//     dispatch(requestPosts(subreddit))
-//     return fetch(`https://www.reddit.com/r/${subreddit}.json`)
-//       .then(response => response.json())
-//       .then(json => dispatch(receivePosts(subreddit, json)))
-//   }
-// }
+function deletePostSuccess(id) {
+  return {
+    type: UIActionTypes.DELETE_POST_SUCCESS,
+    payload: id
+  }
+}

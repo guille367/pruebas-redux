@@ -6,6 +6,11 @@ export default function UIReducer(state = {}, action) {
       return {...state, submittingPost: true}
     case UIActionTypes.SUBMITTING_POST_SUCCESS:
       return {...state, submittingPost: false}
+    case UIActionTypes.DELETING_POST:
+      return {...state, deletingPost: true}
+    case UIActionTypes.DELETE_POST_SUCCESS:
+      return {...state, deletingPost: false}
+    default:
+      return state;
   }
-  return state;
 } 

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 class NewPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: 'titulo' }
   }
 
   submitPost = (values) => {
@@ -34,7 +33,7 @@ class NewPost extends React.Component {
     if(this.props.uiState.submittingPost){
       return ("Wait a second...");
     }
-
+    
     return (
       <Form onSubmit={ this.props.handleSubmit(this.submitPost) } className="content">
         <h1>New Post</h1>
@@ -76,7 +75,6 @@ const validateCategories = (input) => {
 }
 
 const mapStateToProps = (props,ownProps) => {
-  console.log(props)
   return props;
 }
 
